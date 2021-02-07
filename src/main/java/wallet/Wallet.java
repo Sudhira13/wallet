@@ -1,28 +1,15 @@
 package wallet;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Wallet {
-    public final List<Money> myWallet = new ArrayList<>();
+    public Money money;
 
-    public void addMoney(Money money) throws NoMoneyToAddException {
-        if(money.amount<0) throw new NoMoneyToAddException("Please add money!");
-        myWallet.add(money);
-        System.out.println(myWallet);
+    public Wallet(Money money) {
+        this.money = money;
     }
 
-    public boolean withDrawMoney(Money money) throws InvalidAmountException {
-        if(!myWallet.contains(money)) throw new InvalidAmountException("Amount is not in the wallet!");
-        return myWallet.remove(money);
+    public Wallet add(Money money){
+        double amount = this.money.amount + money.amount;
+        Money newMoney = new Money(Currency.RUPEE, amount);
+        return new Wallet(newMoney);
     }
-
-    public double getTotalAmount(Money money, CurrencyType preferredCurrency){
-        if(preferredCurrency == CurrencyType.RUPEE){
-            return money.convertIntoRupee(myWallet);
-        }else{
-            return money.convertIntoDollar(myWallet);
-        }
-    }
-
 }
