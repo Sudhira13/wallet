@@ -19,4 +19,8 @@ public class Wallet {
         Money newMoney = new Money(Currency.RUPEE, balance);
         return new Wallet(newMoney);
     }
+
+    public  double getTotal(Currency preferredCurrency){
+        return preferredCurrency.getTotalAmount(this.money.amount);
+    }
 }

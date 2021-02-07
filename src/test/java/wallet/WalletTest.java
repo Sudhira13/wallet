@@ -27,4 +27,20 @@ public class WalletTest {
         assertThrows(NotEnoughMoneyException.class,() -> wallet.withDraw(new Money(Currency.RUPEE, 250)));
     }
 
+    @Test
+    void shouldReturnTotalAmountForPreferredCurrencyDollar(){
+        Money money = new Money(Currency.RUPEE, 299.4);
+        Wallet wallet = new Wallet(money);
+        double totalAmount = wallet.getTotal(Currency.DOLLAR);
+        assertEquals(4,totalAmount);
+    }
+
+    @Test
+    void shouldReturnTotalAmountForPreferredCurrencyRupee(){
+        Money money = new Money(Currency.DOLLAR, 4);
+        Wallet wallet = new Wallet(money);
+        double totalAmount = wallet.getTotal(Currency.RUPEE);
+        assertEquals(299.4,totalAmount);
+    }
+
 }
